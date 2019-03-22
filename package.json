@@ -1,7 +1,7 @@
 {
   "name": "paskwanewsscraper",
   "version": "1.0.0",
-  "description": "Full MERN stack app that allows users to scrape news articles from NYT online website, save favorites and record notes.",
+  "description": "Full MERN stack app that allows users to scrape news articles from CNET online website, save favorites and record notes.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -21,6 +21,7 @@
     "cheerio": "^1.0.0-rc.2",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.2",
+    "mongojs": "^2.6.0",
     "mongoose": "^5.4.19"
   }
 }
