@@ -14,7 +14,13 @@ var PORT = process.env.PORT || 3000;
 var app = express();
 
 //Designate Public folder
+
+// Middleware
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+// app.use(express.static("public"));//TA question - when to use #21?
 app.use(express.static(__dirname + "/public"));
+
 
 //set up express view engine
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
@@ -47,6 +53,10 @@ mongoose.connect(db, function(error) {
 //Routes
 app.get("/", function(req, res) {
   res.render("home");
+});
+
+app.get("/saved", function(req, res) {
+  res.render("saved");
 });
 
 // // Database configuration

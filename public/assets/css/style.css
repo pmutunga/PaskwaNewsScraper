@@ -5,8 +5,11 @@ html {
 
 body {
     margin-bottom: 80px;
-    background-image: ("./assets/images/paper.png");
-  
+    background-image: url(../images/paper.png);
+    background-repeat:no-repeat;
+    background-size: 100%;
+    background-color:#f5f5f5;
+   
 }
 
 .footer {
@@ -30,7 +33,7 @@ body {
     box-shadow: 10px 5px 20px 20px lightslategrey
 }
 
-.jumbotron .overlay{
+/* .jumbotron .overlay{
     background: linear-gradient(#333, black);
     position: absolute;
     opacity: 0.7;
@@ -39,4 +42,4 @@ body {
     left: 0;
 
 
-}
+} */
