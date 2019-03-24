@@ -5,7 +5,7 @@ A full MERN stack web application that allows you to search for news that's rele
 ## How it works.
   1. Whenever you visits Paskwa's News Scraper, the app scrapes stories from https://www.cnet.com/news/ and displays them for you. Each scraped article is saved in a MongoDB database. The app then displays the following information for each article:
 
-     * Headline - the title of the article
+     * HeadLine - the title of the article
      * Summary - a short summary of the article
      * URL - the url to the original article
      * Photo  - the photo from the caption of the original article.
