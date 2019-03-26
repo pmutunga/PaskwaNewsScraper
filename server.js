@@ -3,6 +3,8 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 var exphbs = require("express-handlebars");
 
+// var router = express.Router();
+
 // Our scraping tools
 // Axios is a promised-based http library, similar to jQuery's Ajax method
 // It works on the client and on the server
@@ -10,7 +12,7 @@ var axios = require("axios");
 var cheerio = require("cheerio");
 
 // // Require all models
-var db = require("./models"); //TA question - if I don't specify the file the app crashes.
+var db = require("./models"); //TA question - if I don't specify the file the app crashes. I figured out I needed an Index.js in models that exports Headline.js and Note.js
 
 //Set up port to either host's designated port or 3000.
 var PORT = process.env.PORT || 3000;
@@ -27,24 +29,25 @@ app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Make public a static folder
-app.use(express.static("public"));
+//app.use(express.static("public"));//TA question - when to use?
+app.use(express.static(__dirname + "/public"));//This works for me
 
 //set up express view engine
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/mongoHeadlines", { useNewUrlParser: true })
-.then(function(){
-    console.log("connected to db")
+// mongoose.connect("mongodb://localhost/mongoHeadlines", { useNewUrlParser: true })
+// .then(function(){
+//     console.log("connected to db")
+// });
+
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true }).then(function(){
+  console.log("connected to db");
 });
 
-
-
-// Load HTML & API routing
-// require('./controllers/Headlines.js')(app, path, db);
-// require('./controllers/Notes.js/index.js.js')(app, path, db);
-// Routes
+// HTML routes
 app.get("/", function(req, res) {
     res.render("home");
   });
@@ -53,16 +56,16 @@ app.get("/", function(req, res) {
     res.render("saved");
   });
 
-// A GET route for scraping the echoJS website
+  //API routes
+// A GET route for scraping the cNet website
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with axios
-  axios.get("http://www.nytimes.com/").then(function(response) {
+  axios.get("https://www.cnet.com/").then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
-    console.log(response.body);
-    var $ = cheerio.load(response.body);
+    var $ = cheerio.load(response.data);
 
-   // Now, we grab every div with the class css-1qj0wac and do the following:
-    $(".css-1qj0wac").each(function(i, element) {
+    // Now, we grab every h3 within an article tag, and do the following:
+    $("h3").each(function(i, element) {
       // Save an empty result object
       var result = {};
 
@@ -74,11 +77,15 @@ app.get("/scrape", function(req, res) {
         .children("a")
         .attr("href");
 
+      // var newheadline = new Headline(result);
+      // newheadline.updateLink();
+      // console.log(newheadline);
+
       // Create a new Article using the `result` object built from scraping
-      db.HeadLine.create(result)
-        .then(function(dbHeadline) {
+      db.Headline.create(result)
+        .then(function(dbArticle) {
           // View the added result in the console
-          console.log(dbHeadline);
+          console.log(dbArticle);
         })
         .catch(function(err) {
           // If an error occurred, log it
@@ -94,10 +101,11 @@ app.get("/scrape", function(req, res) {
 // Route for getting all Articles from the db
 app.get("/headlines", function(req, res) {
   // Grab every document in the Articles collection
-  db.HeadLine.find({})
+  db.Headline.find({})
     .then(function(dbHeadline) {
       // If we were able to successfully find Articles, send them back to the client
-      res.json(dbHeadline);
+     //res.json(dbHeadline);
+     res.render("home", {Headline: dbHeadline})
     })
     .catch(function(err) {
       // If an error occurred, send it to the client
@@ -108,7 +116,7 @@ app.get("/headlines", function(req, res) {
 // Route for grabbing a specific Article by id, populate it with it's note
 app.get("/headlines/:id", function(req, res) {
   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-  db.HeadLine.findOne({ _id: req.params.id })
+  db.Headline.findOne({ _id: req.params.id })
     // ..and populate all of the notes associated with it
     .populate("note")
     .then(function(dbHeadline) {

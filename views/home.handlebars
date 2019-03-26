@@ -1,23 +1,36 @@
 {{> nav/homenav}}
-<div class="jumbotron text-center">
-    <div class="overlay">
-        <div>
-            <div class="background-image"></div>
-            <div class="caption">
-                <h1> Mongo Scraper</h1>
-                <p> New York Times Edition</p>
+<div class="row heading">
+    <div class="col">
+        <div class="jumbotron text-center">
+            <div class="overlay">
+                <div>
+                    <div class="background-image"></div>
+                    <div class="caption">
+                        <h1> Mongo Scraper</h1>
+                        <p> New York Times Edition</p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<div class="container-fluid article-container">
-</div>
+    </div> {{!end of col}}
+</div> {{!end of heading row}}
+<div class="row results">
+    <div class="col">
+        <div class="container-fluid article-container" id="articles">
+            {{#each Headline}}
+            <div class="media">
+                <img class="mr-3" src="..." alt="Generic placeholder image">
+                <div class="media-body">
+                    <p class="mt-0">{{this.title}}</p>
+                    <p><a href="https://www.cnet.com{{this.link}}>">Read</a></p>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>{{!end of col}}
+</div> {{!end of articles row}}
+{{> footer/footer}}
 
-<footer class="footer">
-    <div class="container">
-        <p>New York Times Mongo Scraper</p>
-    </div>
-</footer>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
@@ -26,4 +39,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
     integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
     crossorigin="anonymous"></script>
-     <script src="../public/assets/javascript/index.js"></script>
+<script src="/assets/javascript/index.js"></script>

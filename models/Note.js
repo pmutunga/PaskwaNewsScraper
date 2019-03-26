@@ -8,7 +8,10 @@ var NoteSchema = new Schema({
     //     ref: "HeadLine"
       
     // },
-    date:String,
+    createdData:{
+        type: Date,
+        default: Date.now
+        },
     noteText: String
 });
 

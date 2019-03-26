@@ -6,20 +6,20 @@ var Schema = mongoose.Schema;
 
 // Using the Schema constructor, create a new HeadlineSchema object
 var HeadlineSchema = new Schema({
-    HeadLine: {
+    title: {
         type: String,
         required: true,
         unique: true
     },
-    summary: {
-        type:String,
-        required: true
-    },
+    // summary: {
+    //     type:String,
+    //     required: true
+    // },
     link: {
         type: String,
         required: true
       },
-    date:String,
+    // date:String,
     saved: {
         type: Boolean,
         default: false
@@ -33,7 +33,16 @@ var HeadlineSchema = new Schema({
   }
 });
 
-// This creates our model from the above schema, using mongoose's model method
-var HeadLine = mongoose.model("HeadLine", HeadlineSchema);
+// Custom Instance Methods
+HeadlineSchema.methods.updateLink = function(){
+  //add base URI to link
+  this.link = "https://www.cnet.com/" + this.link;
 
-module.exports = HeadLine;
+  //return the new link
+  return this.link;
+}
+
+// This creates our model from the above schema, using mongoose's model method
+var Headline = mongoose.model("Headline", HeadlineSchema);
+
+module.exports = Headline;
