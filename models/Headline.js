@@ -19,7 +19,7 @@ var HeadlineSchema = new Schema({
         type: String,
         required: true
       },
-    // date:String,
+    // image:String,
     saved: {
         type: Boolean,
         default: false

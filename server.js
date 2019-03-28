@@ -20,7 +20,6 @@ var PORT = process.env.PORT || 3000;
 // Initialize Express
 var app = express();
 
-
 // Configure middleware
 
 // Use morgan logger for logging requests
@@ -30,7 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Make public a static folder
 //app.use(express.static("public"));//TA question - when to use?
-app.use(express.static(__dirname + "/public"));//This works for me
+app.use(express.static(__dirname + "/public")); //This works for me
 
 //set up express view engine
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
@@ -42,21 +41,22 @@ app.set("view engine", "handlebars");
 //     console.log("connected to db")
 // });
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true }).then(function(){
+var MONGODB_URI =
+  process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true }).then(function() {
   console.log("connected to db");
 });
 
 // HTML routes
 app.get("/", function(req, res) {
-    res.render("home");
-  });
-  
-  app.get("/saved", function(req, res) {
-    res.render("saved");
-  });
+  res.render("home");
+});
 
-  //API routes
+app.get("/saved", function(req, res) {
+  res.render("saved");
+});
+
+//API routes
 // A GET route for scraping the cNet website
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with axios
@@ -65,7 +65,7 @@ app.get("/scrape", function(req, res) {
     var $ = cheerio.load(response.data);
 
     // Now, we grab every h3 within an article tag, and do the following:
-    $("h3").each(function(i, element) {
+    $(".latestScrollItems h3").each(function(i, element) {
       // Save an empty result object
       var result = {};
 
@@ -73,9 +73,15 @@ app.get("/scrape", function(req, res) {
       result.title = $(this)
         .children("a")
         .text();
-      result.link = $(this)
+      // result.summary = $(this)
+      //   .children("p")
+      //   .text();
+      // result.image = $(this)
+      //   .children("img")
+      //   .attr("src");
+      result.link = `https://www.cnet.com/${$(this)
         .children("a")
-        .attr("href");
+        .attr("href")}`;
 
       // var newheadline = new Headline(result);
       // newheadline.updateLink();
@@ -104,8 +110,8 @@ app.get("/headlines", function(req, res) {
   db.Headline.find({})
     .then(function(dbHeadline) {
       // If we were able to successfully find Articles, send them back to the client
-     //res.json(dbHeadline);
-     res.render("home", {Headline: dbHeadline})
+      //res.json(dbHeadline);
+      res.render("home", { Headline: dbHeadline });
     })
     .catch(function(err) {
       // If an error occurred, send it to the client
@@ -137,7 +143,11 @@ app.post("/headlines/:id", function(req, res) {
       // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
       // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
       // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
-      return db.HeadLine.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
+      return db.HeadLine.findOneAndUpdate(
+        { _id: req.params.id },
+        { note: dbNote._id },
+        { new: true }
+      );
     })
     .then(function(dbHeadline) {
       // If we were able to successfully update an Article, send it back to the client

@@ -15,14 +15,14 @@
     </div> {{!end of col}}
 </div> {{!end of heading row}}
 <div class="row results">
-    <div class="col">
+    <div class="col-lg-8">
         <div class="container-fluid article-container" id="articles">
             {{#each Headline}}
             <div class="media">
-                <img class="mr-3" src="..." alt="Generic placeholder image">
+                {{!-- <img class="mr-3" src="..." alt="Generic placeholder image"> --}}
                 <div class="media-body">
                     <p class="mt-0">{{this.title}}</p>
-                    <p><a href="https://www.cnet.com{{this.link}}>">Read</a></p>
+                    <p><a href="{{this.link}}">Read</a></p>
                 </div>
             </div>
             {{/each}}
