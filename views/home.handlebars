@@ -1,34 +1,38 @@
 {{> nav/homenav}}
-<div class="row heading">
-    <div class="col">
-        <div class="jumbotron text-center">
-            <div class="overlay">
-                <div>
-                    <div class="background-image"></div>
-                    <div class="caption">
-                        <h1> Mongo Scraper</h1>
-                        <p> New York Times Edition</p>
+<div class="container" id="wrapper">
+    <div class="row heading">
+        <div class="col">
+            <div class="jumbotron text-center">
+                <div class="overlay">
+                    <div>
+                        <div class="background-image"></div>
+                        <div class="caption">
+                            <h1> Mongo Scraper</h1>
+                            <p> New York Times Edition</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div> {{!end of col}}
-</div> {{!end of heading row}}
-<div class="row results">
-    <div class="col-lg-8">
-        <div class="container-fluid article-container" id="articles">
-            {{#each Headline}}
-            <div class="media">
-                {{!-- <img class="mr-3" src="..." alt="Generic placeholder image"> --}}
-                <div class="media-body">
-                    <p class="mt-0">{{this.title}}</p>
-                    <p><a href="{{this.link}}">Read</a></p>
+        </div> {{!end of col}}
+    </div> {{!end of heading row}}
+    <div class="row results">
+        <div class="col" id="scrapedarticles">
+            <div class="container-fluid article-container">
+                {{#each Headline}}
+                <div class="media articles">
+                    {{!-- <img class="mr-3" src="..." alt="Generic placeholder image"> --}}
+                    <div class="media-body">
+                        <p class="mt-0">{{this.title}}</p>
+                        <p><a href="{{this.link}}">Read</a></p>
+                    </div>
                 </div>
+                <div id="notes">
+                </div>
+                {{/each}}
             </div>
-            {{/each}}
-        </div>
-    </div>{{!end of col}}
-</div> {{!end of articles row}}
+        </div>{{!end of col}}
+    </div> {{!end of articles row}}
+</div>{{!end of wrapper}}
 {{> footer/footer}}
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
