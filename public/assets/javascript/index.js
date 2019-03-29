@@ -8,8 +8,8 @@ $.getJSON("/headlines", function(data) {
   });
   
   
-  // Whenever someone clicks a p tag
-  $(document).on("click", "p", function() {
+  // Whenever someone clicks the leave-note button
+  $(document).on("click", ".leave-note", function() {
     // Empty the notes from the note section
     $("#notes").empty();
     // Save the id from the p tag
@@ -18,7 +18,7 @@ $.getJSON("/headlines", function(data) {
     // Now make an ajax call for the Article
     $.ajax({
       method: "GET",
-      url: "/articles/" + thisId
+      url: "/headlines/" + thisId
     })
       // With that done, add the note information to the page
       .then(function(data) {
