@@ -22,7 +22,7 @@ $.getJSON("/headlines", function(data) {
     })
       // With that done, add the note information to the page
       .then(function(data) {
-        console.log(data);
+         console.log(data);
         // The title of the article
         $("#notes").append("<h2>" + data.title + "</h2>");
         // An input to enter a new title
@@ -50,7 +50,7 @@ $.getJSON("/headlines", function(data) {
     // Run a POST request to change the note, using what's entered in the inputs
     $.ajax({
       method: "POST",
-      url: "/articles/" + thisId,
+      url: "/headlines/" + thisId,
       data: {
         // Value taken from title input
         title: $("#titleinput").val(),
