@@ -1,16 +1,12 @@
 # Paskwa-s-News-Scraper
 
-A full MERN stack web application that allows you to search for news that's relevant for you, makr your favorite stories and add personal notes.
+A full MERN stack web application that allows you to search for news that's relevant for you, mark your favorite stories and add personal notes.
 
 ## How it works.
   1. Whenever you visits Paskwa's News Scraper, the app scrapes stories from https://www.cnet.com/news/ and displays them for you. Each scraped article is saved in a MongoDB database. The app then displays the following information for each article:
 
      * HeadLine - the title of the article
-     * Summary - a short summary of the article
      * URL - the url to the original article
-     * Photo  - the photo from the caption of the original article.
-     * Category - the category of the story.
-     * Author - the article's author.
 
   2. You are able to leave comments on the articles displayed and revisit them later. The comments are saved to the database as well and associated with their articles. If you don't like a comment you made earlier, you'll be able to delete the comment your wrote. All stored comments are visible to every user.
 
