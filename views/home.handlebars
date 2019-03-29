@@ -19,13 +19,17 @@
         <div class="col" id="scrapedarticles">
             <div class="container-fluid article-container">
                 {{#each Headline}}
-                <div class="media articles" >
+                <div class="media articles">
                     {{!-- <img class="mr-3" src="..." alt="Generic placeholder image"> --}}
                     <div class="media-body">
                         <p class="mt-0">{{this.title}}</p>
                         <p><a href="{{this.link}}">Read Article</a></p>
-                        <button class="btn btn-outline-success my-2 my-sm-0 leave-note" type="submit" data-id="{{this._id}}" >Leave a
+                        <button class="btn btn-outline-success my-2 my-sm-0 leave-note" type="submit"
+                            data-id="{{this._id}}">Leave a
                             note</button>
+                        <button class="btn btn-outline-primary my-2 my-sm-0 save" type="submit"
+                            data-id="{{this._id}}"><i class="fas fa-save"></i></button>
+                        <hr>
                     </div>
                     <div id="notes">
                     </div>
