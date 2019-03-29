@@ -42,12 +42,12 @@ $.getJSON("/headlines", function(data) {
       });
   });
   
-  // When you click the savenote button
-  $(document).on("click", "#savenote", function() {
+  // When you click the save button
+  $(document).on("click", ".save", function() {
     // Grab the id associated with the article from the submit button
     var thisId = $(this).attr("data-id");
   
-    // Run a POST request to change the note, using what's entered in the inputs
+    // Run a POST request to save the value of saved from false to true.
     $.ajax({
       method: "POST",
       url: "/headlines/" + thisId,
