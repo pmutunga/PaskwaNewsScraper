@@ -1,19 +1,71 @@
 {{> nav/savednav}}
-<div class="jumbotron text-center">
-    <div class="overlay">
-        <div>
-            <div class="background-image"></div>
-            <div class="caption">
-                <h1> Mongo Scraper</h1>
-                <p> New York Times Edition</p>
+<div class="container" id="wrapper">
+    <div class="row heading">
+        <div class="col">
+            <div class="jumbotron text-center">
+                <div class="overlay">
+                    <div>
+                        <div class="background-image"></div>
+                        <div class="caption">
+                            <h1> Saved Articles</h1>
+                            <p> CNET News</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> {{!end of col}}
+    </div> {{!end of heading row}}
+    <div class="row results">
+        <div class="col" id="scrapedarticles">
+            <div class="container-fluid article-container">
+                {{#each Headline}}
+                {{#if this.saved}}
+                <div class="media articles">
+                    {{!-- <img class="mr-3" src="..." alt="Generic placeholder image"> --}}
+                    <div class="media-body">
+                        <p class="mt-0">{{this.title}}</p>
+                        <p><a href="{{this.link}}">Read Article</a></p>
+                        <form action="/unsaveheadlines/{{this.id}}?_method=PUT" method="POST">
+                            <button class="btn btn-outline-success my-2 my-sm-0 add-comment" type="submit"
+                                data-id="{{this._id}}">Add a comment <i class="fas fa-comments"></i></button>
+                            <button class="btn btn-outline-danger my-2 my-sm-0 remove-fav float-right" type="submit"
+                                data-id="{{this._id}}">Remove from favorites</button>
+                        </form>
+                        <hr>
+                    </div>
+                    <div id="notes">
+                    </div>
+                </div>
+                {{/if}}
+                {{/each}}
+            </div>
+        </div>{{!end of col}}
+    </div> {{!end of articles row}}
+</div>{{!end of wrapper}}
+{{> footer/footer}}
+<!-- Modal -->
+<div id="results-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title"><strong>You have successfully saved this article!</strong></h2>
+            </div>
+            <div class="modal-body">
+                <p class="mt-0">{{this.title}}</p>
+                <p><a href="{{this.link}}">Go to Article</a></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
+
     </div>
 </div>
-<div class="container-fluid article-container">
-</div>
 
-{{> footer/footer}}
+
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
@@ -22,4 +74,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
     integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
     crossorigin="anonymous"></script>
-    {{!-- <script src="../public/assets/javascript/saved.js"></script> --}}
+{{!-- <script src="../public/assets/javascript/saved.js"></script> --}}

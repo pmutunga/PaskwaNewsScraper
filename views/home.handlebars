@@ -8,7 +8,7 @@
                         <div class="background-image"></div>
                         <div class="caption">
                             <h1> Mongo Scraper</h1>
-                            <p> New York Times Edition</p>
+                            <p> CNET News</p>
                         </div>
                     </div>
                 </div>
@@ -19,6 +19,7 @@
         <div class="col" id="scrapedarticles">
             <div class="container-fluid article-container">
                 {{#each Headline}}
+                {{#unless this.saved}}
                 <div class="media articles">
                     {{!-- <img class="mr-3" src="..." alt="Generic placeholder image"> --}}
                     <div class="media-body">
@@ -31,19 +32,12 @@
                             <button class="btn btn-outline-success my-2 my-sm-0 save" type="submit"
                                 data-id="{{this._id}}">Save this article <i class="fas fa-save"></i></button>
                         </form>
-                        {{!-- 
-                                                <form action="/burgers/{{this.id}}?_method=PUT" method="POST">
-                        <input type="hidden" name="burger_id" type="text" value={{this.id}}>
-                        <button type="submit" class="btn btn-primary devour">
-                            DEVOUR IT!
-                        </button>
-                    </form>
-                             --}}
                         <hr>
                     </div>
                     <div id="notes">
                     </div>
                 </div>
+                {{/unless}}
                 {{/each}}
             </div>
         </div>{{!end of col}}
@@ -67,7 +61,7 @@
             <div class="modal-footer">
                 <button class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
-        </div>  q
+        </div>
 
     </div>
 </div>

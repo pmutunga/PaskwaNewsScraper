@@ -7,7 +7,14 @@ $.getJSON("/headlines", function(data) {
     }
   });
   
-  
+  $.getJSON("/saved", function(data) {
+    // For each one
+    for (var i = 0; i < data.length; i++) {
+      // Display the apropos information on the page
+      $("#scrapedarticles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
+    }
+  });
+
   // Whenever someone clicks the leave-note button
   $(document).on("click", ".leave-note", function() {
     // Empty the notes from the note section
@@ -42,14 +49,6 @@ $.getJSON("/headlines", function(data) {
       });
   });
   
-  /*
-  console.log('Client-side code running');
-
-const button = document.getElementById('myButton');
-button.addEventListener('click', function(e) {
-  console.log('button was clicked');
-});
-  */
   //When you click the save button
   $(document).on("click", ".save", function() {
     console.log('Client-side code running');
@@ -60,6 +59,32 @@ button.addEventListener('click', function(e) {
     $.ajax({
       method: "POST",
       url: "/saveheadlines/" + thisId
+      // data: {
+      //   // change value of saved to true
+      //   saved: true,
+      // }
+    })
+      // With that done
+      .then(function(data) {
+        // Log the response
+        console.log("Client-side code finished running");
+        // res.redirect("/headlines");
+        // $("#results-modal").modal("toggle");
+      });
+
+  // });
+    }); 
+
+    //When you click the remove-fav button
+  $(document).on("click", ".remove-fav", function() {
+    console.log('Client-side code running');
+    // Grab the id associated with the article from the submit button
+    var thisId = $(this).attr("data-id");
+  
+    // Run a POST request to save the value of saved from false to true.
+    $.ajax({
+      method: "POST",
+      url: "/unsaveheadlines/" + thisId
       // data: {
       //   // change value of saved to true
       //   saved: true,

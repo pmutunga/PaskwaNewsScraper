@@ -52,9 +52,9 @@ app.get("/", function(req, res) {
   res.render("home");
 });
 
-app.get("/saved", function(req, res) {
-  res.render("saved");
-});
+// app.get("/saved", function(req, res) {
+//   res.render("saved");
+// });
 
 //API routes
 // A GET route for scraping the cNet website
@@ -107,7 +107,7 @@ app.get("/scrape", function(req, res) {
 // Route for getting all Articles from the db
 app.get("/headlines", function(req, res) {
   // Grab every document in the Articles collection
-  db.Headline.find({})
+  db.Headline.find({saved:false})
     .then(function(dbHeadline) {
       // If we were able to successfully find Articles, send them back to the client
       //res.json(dbHeadline);
@@ -119,21 +119,21 @@ app.get("/headlines", function(req, res) {
     });
 });
 
-//Route for going to article page
-// Route for getting all Articles from the db
-app.get("/headlines", function(req, res) {
+// Route for getting saved Articles from the db
+app.get("/saved", function(req, res) {
   // Grab every document in the Articles collection
-  db.Headline.find({})
-    .then(function(dbHeadline) {
+  db.Headline.find({saved: true})
+    .then(function(dbSaved) {
       // If we were able to successfully find Articles, send them back to the client
       //res.json(dbHeadline);
-      res.render("home", { Headline: dbHeadline });
+      res.render("saved", { Headline: dbSaved });
     })
     .catch(function(err) {
       // If an error occurred, send it to the client
       res.json(err);
     });
 });
+
 
 // Route for grabbing a specific Article by id, populate it with it's note
 app.get("/headlines/:id", function(req, res) {
@@ -200,6 +200,37 @@ app.post("/saveheadlines/:id", function(req, res) {
         // This will fire off the success function of the ajax request
         console.log(edited);
         res.send(edited);
+        // res.redirect("/headlines");
+        
+      }
+    });
+});
+
+//route for unsaving article
+app.post("/unsaveheadlines/:id", function(req, res) {
+  console.log("server-side code running");
+// Update the headline that matches the object id
+  db.Headline.update(
+    {
+      _id: req.params.id
+    },
+    {
+      // Set the saved to true
+      $set: {
+        saved: false
+      }
+    },
+    function(error, unsaved) {
+      // Log any errors from mongojs
+      if (error) {
+        console.log(error);
+        res.send(error);
+      }
+      else {
+        // Otherwise, send the mongojs response to the browser
+        // This will fire off the success function of the ajax request
+        console.log(unsaved);
+        res.send(unsaved);
         // res.redirect("/headlines");
         
       }
