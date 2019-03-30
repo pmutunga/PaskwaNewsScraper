@@ -24,16 +24,21 @@
                     {{!-- <img class="mr-3" src="..." alt="Generic placeholder image"> --}}
                     <div class="media-body">
                         <p class="mt-0">{{this.title}}</p>
-                        <p><a href="{{this.link}}">Read Article</a></p>
+                        <p><a href="{{this.link}}">Go to Article</a></p>
                         <form action="/unsaveheadlines/{{this.id}}?_method=PUT" method="POST">
-                            <button class="btn btn-outline-success my-2 my-sm-0 add-comment" type="submit"
-                                data-id="{{this._id}}">Add a comment <i class="fas fa-comments"></i></button>
-                            <button class="btn btn-outline-danger my-2 my-sm-0 remove-fav float-right" type="submit"
+                            <button class="btn btn-outline-danger my-2 my-sm-0 remove-fav " type="submit"
                                 data-id="{{this._id}}">Remove from favorites</button>
+                            <button class="btn btn-outline-success my-2 my-sm-0 float-right" id="addcomment{{this._id}}" type="submit"
+                                data-id="{{this._id}}">Add a comment <i class="fas fa-comments"></i></button>
                         </form>
                         <hr>
                     </div>
-                    <div id="notes">
+                    <div class="col article-notes">
+                        <h5>Comments</h5>
+                        {{#each this.note}}
+                        <p data-noteid="{{this._id}}"></p>
+                        <p></p>
+                        {{/each}}
                     </div>
                 </div>
                 {{/if}}
@@ -74,4 +79,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
     integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
     crossorigin="anonymous"></script>
-{{!-- <script src="../public/assets/javascript/saved.js"></script> --}}
+<script src="/assets/javascript/index.js"></script>

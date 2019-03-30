@@ -49,7 +49,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true }).then(function() {
 
 // HTML routes
 app.get("/", function(req, res) {
-  res.render("home");
+  res.redirect("/headlines");
 });
 
 // app.get("/saved", function(req, res) {
@@ -100,7 +100,9 @@ app.get("/scrape", function(req, res) {
     });
 
     // Send a message to the client
-    res.send("Scrape Complete");
+    // res.send("Scrape Complete");
+    //if array not empty change clase of modal
+    res.redirect("/headlines");
   });
 });
 
@@ -199,8 +201,8 @@ app.post("/saveheadlines/:id", function(req, res) {
         // Otherwise, send the mongojs response to the browser
         // This will fire off the success function of the ajax request
         console.log(edited);
-        res.send(edited);
-        // res.redirect("/headlines");
+        // res.send(edited);
+        res.redirect("/headlines");
         
       }
     });
@@ -230,8 +232,8 @@ app.post("/unsaveheadlines/:id", function(req, res) {
         // Otherwise, send the mongojs response to the browser
         // This will fire off the success function of the ajax request
         console.log(unsaved);
-        res.send(unsaved);
-        // res.redirect("/headlines");
+        // res.send(unsaved);
+        res.redirect("/saved");
         
       }
     });
