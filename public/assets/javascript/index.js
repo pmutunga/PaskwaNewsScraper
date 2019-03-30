@@ -42,32 +42,36 @@ $.getJSON("/headlines", function(data) {
       });
   });
   
-  // When you click the save button
+  /*
+  console.log('Client-side code running');
+
+const button = document.getElementById('myButton');
+button.addEventListener('click', function(e) {
+  console.log('button was clicked');
+});
+  */
+  //When you click the save button
   $(document).on("click", ".save", function() {
+    console.log('Client-side code running');
     // Grab the id associated with the article from the submit button
     var thisId = $(this).attr("data-id");
   
     // Run a POST request to save the value of saved from false to true.
     $.ajax({
       method: "POST",
-      url: "/headlines/" + thisId,
-      data: {
-        // Value taken from title input
-        title: $("#titleinput").val(),
-        // Value taken from note textarea
-        body: $("#bodyinput").val()
-      }
+      url: "/saveheadlines/" + thisId
+      // data: {
+      //   // change value of saved to true
+      //   saved: true,
+      // }
     })
       // With that done
       .then(function(data) {
         // Log the response
-        console.log(data);
-        // Empty the notes section
-        $("#notes").empty();
+        console.log("Client-side code finished running");
+        // res.redirect("/headlines");
+        // $("#results-modal").modal("toggle");
       });
-  
-    // Also, remove the values entered in the input and textarea for note entry
-    $("#titleinput").val("");
-    $("#bodyinput").val("");
-  });
-  
+
+  // });
+    }); 

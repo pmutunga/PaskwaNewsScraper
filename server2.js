@@ -71,7 +71,7 @@ mongoose.connect(MONGODB_URI, {
 //Routes
 
 // Load API routing
-require('./controllers/Headlines.js')(app, path, db);
+require('./controllers/Headlines.js/index.js.js.js')(app, path, db);
 
 // A GET route for scraping the echoJS website
 app.get("/scrape", function(req, res) {

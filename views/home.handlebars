@@ -24,11 +24,21 @@
                     <div class="media-body">
                         <p class="mt-0">{{this.title}}</p>
                         <p><a href="{{this.link}}">Read Article</a></p>
-                        <button class="btn btn-outline-success my-2 my-sm-0 leave-note" type="submit"
+                        {{!-- <button class="btn btn-outline-success my-2 my-sm-0 leave-note" type="submit"
                             data-id="{{this._id}}">Leave a
-                            note</button>
-                        <button class="btn btn-outline-primary my-2 my-sm-0 save" type="submit"
-                            data-id="{{this._id}}"><i class="fas fa-save"></i></button>
+                            note</button> --}}
+                        <form action="/saveheadlines/{{this.id}}?_method=PUT" method="POST">
+                            <button class="btn btn-outline-success my-2 my-sm-0 save" type="submit"
+                                data-id="{{this._id}}">Save this article <i class="fas fa-save"></i></button>
+                        </form>
+                        {{!-- 
+                                                <form action="/burgers/{{this.id}}?_method=PUT" method="POST">
+                        <input type="hidden" name="burger_id" type="text" value={{this.id}}>
+                        <button type="submit" class="btn btn-primary devour">
+                            DEVOUR IT!
+                        </button>
+                    </form>
+                             --}}
                         <hr>
                     </div>
                     <div id="notes">
@@ -40,7 +50,27 @@
     </div> {{!end of articles row}}
 </div>{{!end of wrapper}}
 {{> footer/footer}}
+<!-- Modal -->
+<div id="results-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title"><strong>You have successfully saved this article!</strong></h2>
+            </div>
+            <div class="modal-body">
+                <p class="mt-0">{{this.title}}</p>
+                <p><a href="{{this.link}}">Go to Article</a></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>  q
+
+    </div>
+</div>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"

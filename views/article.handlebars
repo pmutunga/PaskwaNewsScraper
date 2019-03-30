@@ -1,0 +1,10 @@
+{{> nav/homenav}}
+<div class="media articles" data-id={{this._id}}>
+    {{!-- <img class="mr-3" src="..." alt="Generic placeholder image"> --}}
+    <div class="media-body">
+        <p class="mt-0">{{this.title}}</p>
+        <p><a href="{{this.link}}">Read Article</a></p>
+        <button class="btn btn-outline-success my-2 my-sm-0 leave-note" type="submit" data-id="{{this._id}}">Save this article
+           <i class="far fa-comment"></i></button>
+        <hr>
+    </div>

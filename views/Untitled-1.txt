@@ -1,0 +1,34 @@
+// Update just one note by an id
+app.post("/update/:id", function(req, res) {
+  // When searching by an id, the id needs to be passed in
+  // as (mongojs.ObjectId(IdYouWantToFind))
+
+  // Update the note that matches the object id
+  db.notes.update(
+    {
+      _id: mongojs.ObjectId(req.params.id)
+    },
+    {
+      // Set the title, note and modified parameters
+      // sent in the req body.
+      $set: {
+        title: req.body.title,
+        note: req.body.note,
+        modified: Date.now()
+      }
+    },
+    function(error, edited) {
+      // Log any errors from mongojs
+      if (error) {
+        console.log(error);
+        res.send(error);
+      }
+      else {
+        // Otherwise, send the mongojs response to the browser
+        // This will fire off the success function of the ajax request
+        console.log(edited);
+        res.send(edited);
+      }
+    }
+  );
+});
