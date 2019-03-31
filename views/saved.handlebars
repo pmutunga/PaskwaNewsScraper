@@ -33,10 +33,12 @@
                     </div>
                     <div class="col" id="article-notes{{this._id}}">
                         <h5>Comments</h5>
-                        {{#each this.note}}
-                        <p data-noteid="{{this._id}}"></p>
-                        <p></p>
-                        {{/each}}
+                        {{#if this.note}}
+                        <p data-noteid="{{this._id}}">{{data.note.body}}</p>
+                        <button class="close-button" id="{{this._id}}">
+                            X
+                        </button>
+                        {{/if}}
                     </div>
                     <div class="col" id="commentform{{this._id}}">
                         <button class="btn btn-outline-success my-2 my-sm-0 float-right addcomment"
@@ -47,10 +49,11 @@
                             <p></p>
                             <div class="form-group">
                                 {{!-- <label for="comment">Comments</label> --}}
-                                <input type="text" class="form-control" id="comment{{this._id}}" aria-describedby="commentHelp"
-                                    placeholder="Enter comments">
+                                <input type="text" class="form-control" id="comment{{this._id}}"
+                                    aria-describedby="commentHelp" placeholder="Enter comments">
                             </div>
-                            <button type="submit" class="btn btn-outline-primary my-2 my-sm-0 float-right" data-id = "{{this._id}}" id="savenote{{this._id}}">Save
+                            <button type="submit" class="btn btn-outline-primary my-2 my-sm-0 float-right"
+                                data-id="{{this._id}}" id="savenote{{this._id}}">Save
                                 Comment</button>
                         </form>
                     </div>
