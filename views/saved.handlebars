@@ -26,44 +26,65 @@
                         <p class="mt-0">{{this.title}}</p>
                         <p><a href="{{this.link}}">Go to Article</a></p>
                         <form action="/unsaveheadlines/{{this.id}}?_method=PUT" method="POST">
-                            <button class="btn btn-outline-danger my-2 my-sm-0 remove-fav " type="submit"
+                            <button class="btn btn-outline-danger my-2 my-sm-0 remove-fav" type="submit"
                                 data-id="{{this._id}}">Remove from favorites</button>
-                            <button class="btn btn-outline-success my-2 my-sm-0 float-right" id="addcomment{{this._id}}" type="submit"
-                                data-id="{{this._id}}">Add a comment <i class="fas fa-comments"></i></button>
                         </form>
                         <hr>
                     </div>
-                    <div class="col article-notes">
+                    <div class="col" id="article-notes{{this._id}}">
                         <h5>Comments</h5>
                         {{#each this.note}}
                         <p data-noteid="{{this._id}}"></p>
                         <p></p>
                         {{/each}}
                     </div>
+                    <div class="col" id="commentform{{this._id}}">
+                        <button class="btn btn-outline-success my-2 my-sm-0 float-right addcomment"
+                            id="addcomment{{this._id}}" type="submit" data-id="{{this._id}}">Add a comment <i
+                                class="fas fa-comments"></i></button>
+                        <br>
+                        <form class="commentform hide" id={{this._id}}>
+                            <p></p>
+                            <div class="form-group">
+                                {{!-- <label for="comment">Comments</label> --}}
+                                <input type="text" class="form-control" id="comment{{this._id}}" aria-describedby="commentHelp"
+                                    placeholder="Enter comments">
+                            </div>
+                            <button type="submit" class="btn btn-outline-primary my-2 my-sm-0 float-right" data-id = "{{this._id}}" id="savenote{{this._id}}">Save
+                                Comment</button>
+                        </form>
+                    </div>
                 </div>
                 {{/if}}
                 {{/each}}
+
             </div>
         </div>{{!end of col}}
     </div> {{!end of articles row}}
 </div>{{!end of wrapper}}
 {{> footer/footer}}
+{{!-- Modal to add comment --}}
+
+
 <!-- Modal -->
-<div id="results-modal" class="modal fade" role="dialog">
+<div id="commentsmodal" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button class="close" data-dismiss="modal">&times;</button>
-                <h2 class="modal-title"><strong>You have successfully saved this article!</strong></h2>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add a comment to this article</h4>
             </div>
             <div class="modal-body">
-                <p class="mt-0">{{this.title}}</p>
-                <p><a href="{{this.link}}">Go to Article</a></p>
+                <form action="/unsaveheadlines/{{this.id}}?_method=PUT" method="POST">
+                    <input type=text>
+                    <button class="btn btn-outline-primary my-2 my-sm-0 remove-fav" type="submit"
+                        data-id="{{this._id}}">Save comment</button>
+                </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
 

@@ -78,5 +78,10 @@ textarea {
 }
 
 .hide {
-  display: none;
+  visibility: hidden; 
+}
+
+.commentform {
+
+  margin-top: 5px;
 }
