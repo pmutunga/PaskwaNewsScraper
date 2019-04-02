@@ -6,9 +6,13 @@ var Schema = mongoose.Schema;
 // Using the Schema constructor, create a new NoteSchema object
 // This is similar to a Sequelize model
 var NoteSchema = new Schema({
-  // `title` is of type String
-  // title: String,
+  // `_headlineId` of the article we want to associate our note to
   // `body` is of type String
+  _headlineId: {
+    type:Schema.Types.ObjectId,
+    ref: "Headline"
+  },
+  // date:String,
   body: String  
 });
 

@@ -25,7 +25,7 @@ A full MERN stack web application that allows you to search for news that's rele
 ## Design
 I used a design pattern called MVC. MVC allows us to separate parts of our app and group them based on their functionality and role. 
 * M stands for models. This include all the code for the database models (Headlines and Notes). 
-* V which stands for the views or the layout. I used Express Handlebars. 
+* V which stands for the views or the layout. I used the layout required by Express Handlebars. 
 * C stands for controllers. This is the logic of how the app handles the incoming requests and outgoing responses.
 
 I also used Public and Routes.
@@ -37,6 +37,7 @@ Inside my app folder, I created a directory structure that includes:
 2- models
 3- routes
 4- views
+5 - scripts. 
 
 ## Demo
 The demo of the application can be found here.

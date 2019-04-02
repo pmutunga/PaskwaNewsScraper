@@ -35,17 +35,16 @@ app.use(express.static(__dirname + "/public")); //This works for me
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-// Connect to the Mongo DB
-// mongoose.connect("mongodb://localhost/mongoHeadlines", { useNewUrlParser: true })
-// .then(function(){
-//     console.log("connected to db")
-// });
+//Connect to the Mongo DB and mongoose
 
+//if deployed, use deployed database. Otherwise use the local mongoheadlines db
 var MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true }).then(function() {
   console.log("connected to db");
-});
+});  
+
 
 // HTML routes
 app.get("/", function(req, res) {
@@ -71,7 +70,7 @@ app.get("/scrape", function(req, res) {
 
       // Add the text and href of every link, and save them as properties of the result object
       result.title = $(this)
-        .children("a")
+        .children("h3", "a")
         .text();
       // result.summary = $(this)
       //   .children("p")
@@ -83,9 +82,6 @@ app.get("/scrape", function(req, res) {
         .children("a")
         .attr("href")}`;
 
-      // var newheadline = new Headline(result);
-      // newheadline.updateLink();
-      // console.log(newheadline);
 
       // Create a new Article using the `result` object built from scraping
       db.Headline.create(result)
@@ -109,7 +105,7 @@ app.get("/scrape", function(req, res) {
 // Route for getting all Articles from the db
 app.get("/headlines", function(req, res) {
   // Grab every document in the Articles collection
-  db.Headline.find({saved:false})
+  db.Headline.find({ saved: false })
     .then(function(dbHeadline) {
       // If we were able to successfully find Articles, send them back to the client
       //res.json(dbHeadline);
@@ -124,7 +120,7 @@ app.get("/headlines", function(req, res) {
 // Route for getting saved Articles from the db
 app.get("/saved", function(req, res) {
   // Grab every document in the Articles collection
-  db.Headline.find({saved: true})
+  db.Headline.find({ saved: true })
     .then(function(dbSaved) {
       // If we were able to successfully find Articles, send them back to the client
       //res.json(dbHeadline);
@@ -135,8 +131,6 @@ app.get("/saved", function(req, res) {
       res.json(err);
     });
 });
-
-
 
 // Route for grabbing a specific Article by id, populate it with it's note
 app.get("/headlines/:id", function(req, res) {
@@ -153,7 +147,6 @@ app.get("/headlines/:id", function(req, res) {
       res.json(err);
     });
 });
-
 
 // Route for retrieving all Notes from the db
 app.get("/notes", function(req, res) {
@@ -177,7 +170,11 @@ app.post("/headlines/:id", function(req, res) {
       // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
       // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
       // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
-      return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
+      return db.Article.findOneAndUpdate(
+        { _id: req.params.id },
+        { note: dbNote._id },
+        { new: true }
+      );
     })
     .then(function(dbArticle) {
       // If we were able to successfully update an Article, send it back to the client
@@ -189,12 +186,10 @@ app.post("/headlines/:id", function(req, res) {
     });
 });
 
-
-
 //route for saving article
 app.post("/saveheadlines/:id", function(req, res) {
   console.log("server-side code running");
-// Update the headline that matches the object id
+  // Update the headline that matches the object id
   db.Headline.update(
     {
       _id: req.params.id
@@ -210,22 +205,21 @@ app.post("/saveheadlines/:id", function(req, res) {
       if (error) {
         console.log(error);
         res.send(error);
-      }
-      else {
+      } else {
         // Otherwise, send the mongojs response to the browser
         // This will fire off the success function of the ajax request
         console.log(edited);
         // res.send(edited);
         res.redirect("/headlines");
-        
       }
-    });
+    }
+  );
 });
 
 //route for unsaving article
 app.post("/unsaveheadlines/:id", function(req, res) {
   console.log("server-side code running");
-// Update the headline that matches the object id
+  // Update the headline that matches the object id
   db.Headline.update(
     {
       _id: req.params.id
@@ -241,18 +235,17 @@ app.post("/unsaveheadlines/:id", function(req, res) {
       if (error) {
         console.log(error);
         res.send(error);
-      }
-      else {
+      } else {
         // Otherwise, send the mongojs response to the browser
         // This will fire off the success function of the ajax request
         console.log(unsaved);
         // res.send(unsaved);
         res.redirect("/saved");
-        
       }
-    });
+    }
+  );
 });
-    
+
 // Start the server
 app.listen(PORT, function() {
   console.log("App running on port " + PORT + "!");
