@@ -10,6 +10,17 @@ A full MERN stack web application that allows you to search for news that's rele
 
   2. You are able to leave comments on the articles displayed and revisit them later. The comments are saved to the database as well and associated with their articles. If you don't like a comment you made earlier, you'll be able to delete the comment your wrote. All stored comments are visible to every user.
 
+##Screenshots
+###Home Page
+ ![Home Page](public/assets/images/home.jpg)
+
+### Saved Articles
+ ![Saved](public/assets/images/saved.jpg)
+
+### Comments
+ ![Comments](public/assets/images/addcomment.JPG)
+
+
 ## Technology used
 
    1. express. Express is a light-weight web application framework that I used to organize this web application into an MVC architecture on the server side. It helps me manage everything, from routes, to handling requests and views.
