@@ -12,10 +12,10 @@ A full MERN stack web application that allows you to search for news that's rele
 
 ##Screenshots
 ###Home Page
- ![Home Page](public/assets/images/home.jpg)
+ ![Home Page](public/assets/images/home.JPG)
 
 ### Saved Articles
- ![Saved](public/assets/images/saved.jpg)
+ ![Saved](public/assets/images/saved.JPG)
 
 ### Comments
  ![Comments](public/assets/images/addcomment.JPG)
