@@ -34,7 +34,7 @@ A full MERN stack web application that allows you to search for news that's rele
    5. axios. [Marlon Bernardes](http://codeheaven.io/how-to-use-axios-as-your-http-client/) describes axios as is a promise-based HTTP client that works both in the browser and in a node.js environment. It provides a single API for dealing with XMLHttpRequests and node’s http interface then wraps the requests using a polyfill for ES6 new’s promise syntax. 
 
 ## Demo
-The demo of the application can be found here.
+The demo of the application can be found [here](https://radiant-mesa-18023.herokuapp.com/headlines).
 
 ## Installation
 To run the application locally, first clone this repository with the following command.
