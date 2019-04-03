@@ -120,7 +120,7 @@ $(document).on("click", ".addcomment", function() {
           url: "/headlines/" + thisId,
           data: {
             // Value taken from note textarea
-            body: $(bodyInput).val()
+            comment: $(bodyInput).val()
           }
         })
           // With that done

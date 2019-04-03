@@ -59,12 +59,12 @@ app.get("/", function(req, res) {
 // A GET route for scraping the cNet website
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with axios
-  axios.get("https://www.cnet.com/").then(function(response) {
+  axios.get("https://www.nytimes.com/").then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
 
     // Now, we grab every h3 within an article tag, and do the following:
-    $(".latestScrollItems h3").each(function(i, element) {
+    $("h3").each(function(i, element) {
       // Save an empty result object
       var result = {};
 
@@ -170,7 +170,7 @@ app.post("/headlines/:id", function(req, res) {
       // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
       // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
       // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
-      return db.Article.findOneAndUpdate(
+      return db.Headline.findOneAndUpdate(
         { _id: req.params.id },
         { note: dbNote._id },
         { new: true }
