@@ -137,3 +137,30 @@ $(document).on("click", ".addcomment", function() {
       });
     });
 });
+
+
+//delete note
+
+// // Whenever someone clicks the add comments button
+      // When you click the savenote button
+      $(document).on("click", ".delete-note", function() {
+        console.log("delete comment front end initiated");
+        // Grab the id associated with the article from the submit button
+        var thisId = $(this).attr("data-id");
+
+        // Run a POST request to delete the note, using what's entered in the inputs
+        $.ajax({
+          method: "POST",
+          url: "/headlines/" + thisId,
+          data: {
+            // data-id
+            comment: thisId
+          }
+        })
+          // With that done
+          .then(function(data) {
+            // Log the response
+            console.log(data);
+          });
+
+});

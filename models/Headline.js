@@ -8,9 +8,9 @@ var Schema = mongoose.Schema;
 var HeadlineSchema = new Schema({
     title: {
         type: String,
-        // required: true,
-        default: "No title",
-        // unique: true
+        required: true,
+        // default: "No title",
+        unique: true
     },
     // summary: {
     //     type:String,

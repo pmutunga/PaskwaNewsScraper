@@ -59,7 +59,7 @@ app.get("/", function(req, res) {
 // A GET route for scraping the cNet website
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with axios
-  axios.get("https://www.nytimes.com/").then(function(response) {
+  axios.get("https://www.cnet.com/").then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
 
@@ -70,17 +70,18 @@ app.get("/scrape", function(req, res) {
 
       // Add the text and href of every link, and save them as properties of the result object
       result.title = $(this)
-        .children("h3", "a")
-        .text();
+        .children("a")
+        .text(),
       // result.summary = $(this)
       //   .children("p")
       //   .text();
       // result.image = $(this)
-      //   .children("img")
+      //   .children("figure")
       //   .attr("src");
       result.link = `https://www.cnet.com/${$(this)
         .children("a")
         .attr("href")}`;
+
 
 
       // Create a new Article using the `result` object built from scraping
