@@ -33,23 +33,6 @@ A full MERN stack web application that allows you to search for news that's rele
 
    5. axios. [Marlon Bernardes](http://codeheaven.io/how-to-use-axios-as-your-http-client/) describes axios as is a promise-based HTTP client that works both in the browser and in a node.js environment. It provides a single API for dealing with XMLHttpRequests and node’s http interface then wraps the requests using a polyfill for ES6 new’s promise syntax. 
 
-## Design
-I used a design pattern called MVC. MVC allows us to separate parts of our app and group them based on their functionality and role. 
-* M stands for models. This include all the code for the database models (Headlines and Notes). 
-* V which stands for the views or the layout. I used the layout required by Express Handlebars. 
-* C stands for controllers. This is the logic of how the app handles the incoming requests and outgoing responses.
-
-I also used Public and Routes.
-* Public. This is a folder for all static content including images, front-end javascript and css.
-* Routes. Routes are our guide, they tell the client (browser/mobile app) to go to a specific controller once a specific url/path is requested.
-
-Inside my app folder, I created a directory structure that includes:
-1- controllers
-2- models
-3- routes
-4- views
-5 - scripts. 
-
 ## Demo
 The demo of the application can be found here.
 
